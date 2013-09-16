@@ -46,10 +46,10 @@ end
 % homographies{ref_view} as well
 %
 %------------------------------
-p1 = [data(1:3,1:4) data(4:6,5:8)]
-p2 = [data(7:9,1:4) data(7:9,5:8)]
+p1 = [data(1:3,1:4) data(4:6,5:8)];
+p2 = [data(7:9,1:4) data(7:9,5:8)];
 
-Hown = det_homographies(p1,p2)
+Hown = det_homographies(p1,p2);
 for j = 1:am_cams
 homographies{j} = Hown;
 end

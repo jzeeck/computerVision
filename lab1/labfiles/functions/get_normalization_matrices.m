@@ -19,11 +19,37 @@ function [norm_mat] = get_normalization_matrix(data);
 am_cams = size(data,1)/3;  
 am_points = size(data,2);   
 
-%------------------------------
-%
-% FILL IN THIS PART
-%
-%------------------------------
+%Calc centroid
+centroid = zeros(3,1);
+n = 0;
+for y = 1:3:size(data,1)
+    for x = 1:size(data,2)
+        %X = fprintf('x = %d, y = %d\n', x, y);
+        p = data(y:y+2,x:x);
+        if not(isnan(p(1)))
+            centroid = centroid + p;
+            n = n + 1;
+        end
+    end
+    
+end
+centroid = centroid/n
+%Calc distance
+distance = zeros(3,1);
+for y = 1:3:size(data,1)
+    for x = 1:size(data,2)
+        %X = fprintf('x = %d, y = %d\n', x, y);
+        p = data(y:y+2,x:x);
+        if not(isnan(p(1)))
+            distance = abs(p - centroid);
+        end
+    end
+    
+end
+distance = distance/n
+
+N = zeros(3);
+const = sqrt(2);
 
 
 % as a first test 
