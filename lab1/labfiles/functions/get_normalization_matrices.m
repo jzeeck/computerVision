@@ -12,7 +12,7 @@
 %         matrix for camera 1 
 %
 
-function [norm_mat] = get_normalization_matrix(data);   
+function [norm_mat] = get_normalization_matrix(data);
 
 
 % get Info 
@@ -24,6 +24,7 @@ am_points = size(data,2);
 % FILL IN THIS PART
 %
 %------------------------------
+
 
 % as a first test 
 for hi1 = 1:am_cams

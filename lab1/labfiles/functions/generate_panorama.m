@@ -25,9 +25,9 @@ data_norm = [];
 [images, name_loaded_images] = load_images_grey(name_file_images, am_cams);
 
 % click some points or load the data 
-% load '../data/data_kth.mat'; % if you load a clicked sequnce 
+%load '/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth.mat'; % if you load a clicked sequnce 
 data = click_multi_view(images, am_cams, data, 0); % for clicking and displaying data
-save '../data/data_kth.mat' data; % for later use 
+save ('/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth2.mat', 'data');
 
 % normalize the data 
 [norm_mat] = get_normalization_matrices(data);
@@ -36,7 +36,6 @@ for hi1 = 1:am_cams
 end
 
 % determine all homographies to a reference view
-
 
 %------------------------------
 %
@@ -47,8 +46,12 @@ end
 %
 %------------------------------
 
+homographies = det_homographies(p1,p2)
+
+
 % check error in the estimated homographies
 for hi1 = 1:am_cams
+  disp(hi1)
   [error_mean, error_max] = check_error_homographies(homographies{hi1},data(3*hi1-2:3*hi1,:),data(3*ref_view-2:3*ref_view,:));
   fprintf('Between view %d and ref. view; ', hi1); % Info
   fprintf('average error: %5.2f; maximum error: %5.2f \n', error_mean, error_max); 
