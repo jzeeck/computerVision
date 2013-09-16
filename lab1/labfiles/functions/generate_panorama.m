@@ -25,7 +25,8 @@ data_norm = [];
 [images, name_loaded_images] = load_images_grey(name_file_images, am_cams);
 
 % click some points or load the data 
-load '/afs/nada.kth.se/home/x/u1gxzf8x/Projects/computerVision/lab1/labfiles/data/data_kth2.mat'; % if you load a clicked sequnce 
+%load '/afs/nada.kth.se/home/x/u1gxzf8x/Projects/computerVision/lab1/labfiles/data/data_kth2.mat'; % if you load a clicked sequnce 
+load '/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth2.mat';
 %data = click_multi_view(images, am_cams, data, 0); % for clicking and displaying data
 %save ('/afs/nada.kth.se/home/x/u1gxzf8x/Projects/computerVision/lab1/labfiles/data/data_kth2.mat', 'data');
 
@@ -48,8 +49,10 @@ end
 p1 = [data(1:3,1:4) data(4:6,5:8)]
 p2 = [data(7:9,1:4) data(7:9,5:8)]
 
-H = det_homographies(p1,p2)
-homographies
+Hown = det_homographies(p1,p2)
+for j = 1:am_cams
+homographies{j} = Hown;
+end
 
 
 % check error in the estimated homographies

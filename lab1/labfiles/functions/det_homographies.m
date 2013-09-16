@@ -20,15 +20,16 @@ for index = 1:N,
     ya = points1(2,index);
     xb = points2(1,index);
     yb = points2(2,index);
-    Q(index,:) = [xb,yb,1,0,0,0,-xb*xa,-yb*xa,xa];
+    Q(index,:) = [xb,yb,1,0,0,0,-xb*xa,-yb*xa,-xa];
     Q(index+N,:) = [0,0,0,xb,yb,1,-xb*ya,-yb*ya,-ya];
 end
 Q;
-[U,S,V] = svd(Q)
+[U,S,V] = svd(Q'*Q)
 
 h = V (:,end);
+% debug
+%for index = 1:2*N,
+%    Q(index,:)*h
+%end
 
-H = reshape(h,3,3)
-%H{1} = [h(1) h(2) h(3)]%; h(4) h(5) h(6); h(7) h(8) h(9)]
-%H{2} = [h(4) h(5) h(6)]
-%H{3} = [h(7) h(8) h(9)]
+H = reshape(h,3,3)';
