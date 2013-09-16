@@ -24,9 +24,11 @@ for index = 1:N,
     Q(index+N,:) = [0,0,0,xb,yb,1,-xb*ya,-yb*ya,-ya];
 end
 Q;
-[U,S,V] = svd(Q);
+[U,S,V] = svd(Q)
 
 h = V (:,end);
 
-H = [h(1) h(2) h(3); h(4) h(5) h(6); h(7) h(8) h(9)]
-
+H = reshape(h,3,3)
+%H{1} = [h(1) h(2) h(3)]%; h(4) h(5) h(6); h(7) h(8) h(9)]
+%H{2} = [h(4) h(5) h(6)]
+%H{3} = [h(7) h(8) h(9)]

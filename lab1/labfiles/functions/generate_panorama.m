@@ -25,9 +25,9 @@ data_norm = [];
 [images, name_loaded_images] = load_images_grey(name_file_images, am_cams);
 
 % click some points or load the data 
-%load '/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth.mat'; % if you load a clicked sequnce 
-data = click_multi_view(images, am_cams, data, 0); % for clicking and displaying data
-save ('/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth2.mat', 'data');
+load '/afs/nada.kth.se/home/x/u1gxzf8x/Projects/computerVision/lab1/labfiles/data/data_kth2.mat'; % if you load a clicked sequnce 
+%data = click_multi_view(images, am_cams, data, 0); % for clicking and displaying data
+%save ('/afs/nada.kth.se/home/x/u1gxzf8x/Projects/computerVision/lab1/labfiles/data/data_kth2.mat', 'data');
 
 % normalize the data 
 [norm_mat] = get_normalization_matrices(data);
@@ -45,13 +45,15 @@ end
 % homographies{ref_view} as well
 %
 %------------------------------
+p1 = [data(1:3,1:4) data(4:6,5:8)]
+p2 = [data(7:9,1:4) data(7:9,5:8)]
 
-homographies = det_homographies(p1,p2)
+H = det_homographies(p1,p2)
+homographies
 
 
 % check error in the estimated homographies
 for hi1 = 1:am_cams
-  disp(hi1)
   [error_mean, error_max] = check_error_homographies(homographies{hi1},data(3*hi1-2:3*hi1,:),data(3*ref_view-2:3*ref_view,:));
   fprintf('Between view %d and ref. view; ', hi1); % Info
   fprintf('average error: %5.2f; maximum error: %5.2f \n', error_mean, error_max); 
@@ -61,7 +63,7 @@ end
 panorama_image = generate_warped_image(images, homographies);
 
 % show it
-figure;  
+figure;
 show_image_grey(panorama_image);
 
 % save it 
