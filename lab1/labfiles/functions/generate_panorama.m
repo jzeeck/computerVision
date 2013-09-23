@@ -26,12 +26,12 @@ data_norm = [];
 
 % click some points or load the data 
 %load '/afs/nada.kth.se/home/x/u1gxzf8x/Projects/computerVision/lab1/labfiles/data/data_kth2.mat'; % if you load a clicked sequnce 
-load '/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth2.mat';
+load '/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth5_test.mat';
 %data = click_multi_view(images, am_cams, data, 0); % for clicking and displaying data
-%save ('/afs/nada.kth.se/home/x/u1gxzf8x/Projects/computerVision/lab1/labfiles/data/data_kth2.mat', 'data');
+%save ('/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth5_test.mat', 'data');
 
-% normalize the data 
-[norm_mat] = get_normalization_matrices(data);
+% normalize the data
+[norm_mat] = get_normalization_matrices(data)
 for hi1 = 1:am_cams
   data_norm(hi1*3-2:hi1*3,:) = norm_mat(hi1*3-2:hi1*3,:) * data(hi1*3-2:hi1*3,:); 
 end
@@ -46,13 +46,23 @@ end
 % homographies{ref_view} as well
 %
 %------------------------------
-p1 = [data(1:3,1:4) data(4:6,5:8)];
-p2 = [data(7:9,1:4) data(7:9,5:8)];
-
-Hown = det_homographies(p1,p2);
-for j = 1:am_cams
-homographies{j} = Hown;
+temp = 1;
+while (not(isnan(data(1,temp))))
+    temp = temp +1;
 end
+for j = 1:(am_cams-1)
+
+    p1 = [data((1+3*(j-1)):(3+3*(j-1)),(1+(temp-1)*(j-1)):(temp-1+(temp-1)*(j-1)))];
+    p2 = [data(7:9,(1+(temp-1)*(j-1)):(temp-1+(temp-1)*(j-1)))];
+
+    Hown = det_homographies(p2,p1);
+    
+    homographies{j} = Hown;
+end
+
+homographies{3} = eye(3);
+
+
 
 
 % check error in the estimated homographies
