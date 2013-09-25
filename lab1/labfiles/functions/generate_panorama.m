@@ -26,12 +26,12 @@ data_norm = [];
 
 % click some points or load the data 
 %load '/afs/nada.kth.se/home/x/u1gxzf8x/Projects/computerVision/lab1/labfiles/data/data_kth2.mat'; % if you load a clicked sequnce 
-load '/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth5_test.mat';
+load '/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth5.mat';
 %data = click_multi_view(images, am_cams, data, 0); % for clicking and displaying data
-%save ('/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth5_test.mat', 'data');
+%save ('/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth9.mat', 'data');
 
 % normalize the data
-[norm_mat] = get_normalization_matrices(data)
+[norm_mat] = get_normalization_matrices(data);
 for hi1 = 1:am_cams
   data_norm(hi1*3-2:hi1*3,:) = norm_mat(hi1*3-2:hi1*3,:) * data(hi1*3-2:hi1*3,:); 
 end
@@ -56,11 +56,19 @@ for j = 1:(am_cams-1)
     p2 = [data(7:9,(1+(temp-1)*(j-1)):(temp-1+(temp-1)*(j-1)))];
 
     Hown = det_homographies(p2,p1);
-    
     homographies{j} = Hown;
+    
+    p1 = [data_norm((1+3*(j-1)):(3+3*(j-1)),(1+(temp-1)*(j-1)):(temp-1+(temp-1)*(j-1)))];
+    p2 = [data_norm(7:9,(1+(temp-1)*(j-1)):(temp-1+(temp-1)*(j-1)))];
+    
+    Hown = det_homographies(p2,p1);
+    normHown = inv(norm_mat(end-2:end,:))*Hown*norm_mat(j*3-2:j*3,:);
+    %homographies{j} = normHown;
+    
 end
 
 homographies{3} = eye(3);
+%homographies{3} = inv(norm_mat(3*3-2:3*3,:))*eye(3)*norm_mat(3*3-2:3*3,:)
 
 
 

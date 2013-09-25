@@ -43,7 +43,7 @@ for y = 1:am_cams
     for x = 1:am_points
         p = data(1+((y-1)*3):3+((y-1)*3),x:x);
         if not(isnan(p(1)))
-            distance = norm(p - centroid);
+            distance = distance + norm(p - centroid);
         end
     end
     distance = distance/n;
