@@ -24,7 +24,7 @@ for index = 1:N,
     Q(index+N,:) = [0,0,0,xb,yb,1,-xb*ya,-yb*ya,-ya];
 end
 Q;
-[U,S,V] = svd(Q'*Q);
+[U,S,V] = svd(Q'*Q)
 
 h = V (:,end);
 % debug
