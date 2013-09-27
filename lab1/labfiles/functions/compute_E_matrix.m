@@ -1,4 +1,4 @@
-% function E = compute_E_matrix( points1, points2, K1, K2 );
+% function E = compute_E_matrix( points2d, K );
 %
 % Method:   Calculate the E matrix between two views from
 %           point correspondences: points2^T * E * points1 = 0
@@ -24,24 +24,27 @@ n = size(points2d, 2);
 N = compute_normalization_matrices(points2d);
 
 for index=1:n
-    pa(:,index) = K(:,:,1)\points2d(:,index,1);
-    pa(:,index) = N(1:3,:)*pa(:,index);
-    pb(:,index) = K(:,:,2)\points2d(:,index,2);
-    pb(:,index) = N(4:6,:)*pb(:,index);
-end
-
-for index=1:n
-    xa = pa(1, index);
-    ya = pa(2, index);
-    xb = pb(1, index);
-    yb = pb(2, index);
+    paOrig = points2d(:,index,2);
+    pa = K(:,:,2)\paOrig;
+    pa = N(:,:,1)*pa;
+    pbOrig = points2d(:,index,1);
+    pb = K(:,:,1)\pbOrig;
+    pb = N(:,:,2)*pb;
+    xa = pa(1);
+    ya = pa(2);
+    xb = pb(1);
+    yb = pb(2);
     Q(index,:) = [xb*xa, xb*ya, xb, yb*xa, yb*ya, yb, xa, ya, 1];
 end
 
-[U,S,V] = svd(Q'*Q);
+[U,S,V] = svd(Q);
 h = V (:,end);
+E = reshape(h,3,3)';
 
-E = N(4:6,:)'*reshape(h,3,3)'*N(1:3,:);
+E = N(:,:,2)'*reshape(h,3,3)'*N(:,:,1);
+[U,S,V] = svd(E);
+Scorrect = (S(1,1) + S(2,2)) / 2;
+E = U * [Scorrect,0,0; 0,Scorrect,0;0,0,0] * V';
 
 %for index=1:n
 %    new_pb(:,index)'*E*new_pa(:,index);

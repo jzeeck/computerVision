@@ -21,11 +21,29 @@ K(:,:,1) = [2250    0 400;
                0    0   1];
 K(:,:,2) = K(:,:,1);
 
+%% Test the function compute_normalization_matrices
+
+fprintf('------------------------\n')
+fprintf(' NORMALIZATION ERROR \n')
+fprintf('------------------------\n')
+load( '/Users/Johan/Projects/computerVision/lab1/labfiles/debug/part1/points2d.mat'         );
+load( '/Users/Johan/Projects/computerVision/lab1/labfiles/debug/part1/norm_mat.mat'         );
+
+norm = compute_normalization_matrices(points2d);
+norm_mat;
+
+Norm_error = norm_mat - norm
+
 %% Test the function compute_E_matrix
 
 fprintf('------------------------\n')
 fprintf(' ESSENTIAL MATRIX ERROR \n')
 fprintf('------------------------\n')
+load( '/Users/Johan/Projects/computerVision/lab1/labfiles/debug/part2/points2d.mat'         );
+load( '/Users/Johan/Projects/computerVision/lab1/labfiles/debug/part2/E.mat'                );
+load( '/Users/Johan/Projects/computerVision/lab1/labfiles/debug/part2/cameras.mat'          );
+load( '/Users/Johan/Projects/computerVision/lab1/labfiles/debug/part2/camera_centers.mat'   );
+load( '/Users/Johan/Projects/computerVision/lab1/labfiles/debug/part2/points3d.mat'         );
 
 E_test = compute_E_matrix( points2d, K );
 

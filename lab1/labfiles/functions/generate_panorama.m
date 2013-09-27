@@ -26,7 +26,7 @@ data_norm = [];
 
 % click some points or load the data 
 %load '/afs/nada.kth.se/home/x/u1gxzf8x/Projects/computerVision/lab1/labfiles/data/data_kth2.mat'; % if you load a clicked sequnce 
-load '/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth5.mat';
+load '/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth9.mat';
 %data = click_multi_view(images, am_cams, data, 0); % for clicking and displaying data
 %save ('/Users/Johan/Projects/computerVision/lab1/labfiles/data/data_kth9.mat', 'data');
 
@@ -63,7 +63,7 @@ for j = 1:(am_cams-1)
     
     Hown = det_homographies(p2,p1);
     normHown = inv(norm_mat(end-2:end,:))*Hown*norm_mat(j*3-2:j*3,:);
-    %homographies{j} = normHown;
+    homographies{j} = normHown;
     
 end
 
