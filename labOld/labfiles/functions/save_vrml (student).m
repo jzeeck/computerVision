@@ -68,7 +68,7 @@ fprintf(fid,'  skyColor [0.7 0.7 1, 0.7 0.7 1, 0.7 0.7 1]\n');
 fprintf(fid,'}\n\n');
 
 fprintf(fid,'DEF ROOT Transform {\n');
-fprintf(fid,'  translation 0 -1 0 \n');
+fprintf(fid,'  translation 0 0 0 \n');
 fprintf(fid,'  children [\n');
 if (para1 == 0)
   fprintf(fid,'    Shape { appearance Appearance { texture ImageTexture {url "%s"} }\n',name_image);
