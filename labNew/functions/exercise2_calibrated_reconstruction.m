@@ -20,9 +20,9 @@ REAL_DATA_LOAD      = 3;    % Choose this to load real data.
 VERSION             = SYNTHETIC_DATA;
 
 if VERSION == SYNTHETIC_DATA
-    points2d_file = '../data/data_sphere.mat';
+    points2d_file = '/Users/Johan/Projects/computerVision/labNew/data/data_sphere.mat';
 else
-    points2d_file = '../data/data_teapot.mat';
+    points2d_file = '/Users/Johan/Projects/computerVision/labNew/data/data_teapot.mat';
 end
 
 %% The internal camera parameters

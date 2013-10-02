@@ -8,11 +8,11 @@ addpath( genpath( '../' ) );% Add paths to all subdirectories of the parent dire
 REFERENCE_VIEW      = 1;
 CAMERAS             = 2;
 
-load( '../debug/part2/points2d.mat'         );
-load( '../debug/part2/E.mat'                );
-load( '../debug/part2/cameras.mat'          );
-load( '../debug/part2/camera_centers.mat'   );
-load( '../debug/part2/points3d.mat'         );
+load( '/Users/Johan/Projects/computerVision/labNew/debug/part2/points2d.mat'         );
+load( '/Users/Johan/Projects/computerVision/labNew/debug/part2/E.mat'                );
+load( '/Users/Johan/Projects/computerVision/labNew/debug/part2/cameras.mat'          );
+load( '/Users/Johan/Projects/computerVision/labNew/debug/part2/camera_centers.mat'   );
+load( '/Users/Johan/Projects/computerVision/labNew/debug/part2/points3d.mat'         );
 
 K = zeros(3,3,CAMERAS);
 K(:,:,1) = [2250    0 400;

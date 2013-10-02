@@ -8,12 +8,12 @@ close all                   % Close all figures
 clc                         % Clear the command window
 addpath( genpath( '../' ) );% Add paths to all subdirectories of the parent directory
 
-LOAD_DATA           = false;
+LOAD_DATA           = true;
 REFERENCE_VIEW      = 3;
 CAMERAS             = 3;
-image_names_file    = '../images/names_images_kthsmall.txt';
-name_panorama       = '../images/panorama_image.jpg';
-points2d_file       = '../data/data_kth.mat';
+image_names_file    = '/Users/Johan/Projects/computerVision/labNew/images/names_images_kthsmall.txt';
+name_panorama       = '/Users/Johan/Projects/computerVision/labNew/images/panorama_image.jpg';
+points2d_file       = '/Users/Johan/Projects/computerVision/labNew/data/data_kth5.mat';
 
 [images, name_loaded_images] = load_images_grey( image_names_file, CAMERAS );
 
@@ -31,17 +31,20 @@ end
 % Determine all homographies to a reference view. We have:
 % point in REFERENCE_VIEW = homographies(:,:,c) * point in image c.
 % Remember, you have to set homographies{REFERENCE_VIEW} as well.
-homographies = zeros(3,3,CAMERAS); 
 
-%-------------------------
-% TODO: FILL IN THIS PART
+homographies = zeros(3,3,CAMERAS);
+data(1:3,:)
+for i = 1:(CAMERAS-1)
+    H = compute_homography(data(7:9,:),data((i*3)-2:i*3,:));
+    homographies(:,:,i) = H;
+end
+homographies(:,:,3) = eye(3);
 
 
 
 for c = 1:CAMERAS
     
-    [error_mean error_max] = check_error_homographies( ...
-      homographies(:,:,c), points2d(:,:,c), points2d(:,:,REFERENCE_VIEW) );
+    [error_mean error_max] = check_error_homographies(homographies(:,:,c), points2d(:,:,c), points2d(:,:,REFERENCE_VIEW) );
  
     fprintf( 'Between view %d and ref. view; ', c );
     fprintf( 'average error: %5.2f; maximum error: %5.2f \n', error_mean, error_max );
