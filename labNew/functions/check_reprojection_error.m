@@ -21,6 +21,16 @@
 %      
 
 function [error_average, error_max] = check_reprojection_error( points2d, cameras, point3d )
+error_max = 0;
+error_average = 0
 
-%------------------------------
-% TODO: FILL IN THIS PART
+[~,N,C] = size(points2d);
+
+for n = 1:N
+    for c = 1:C
+        
+    end
+end
+
+
+error = norm(homogeneous_to_cartesian(cameras(:,:,1) * point3d(:,1)) - homogeneous_to_cartesian(points2d(:,1,1)))
