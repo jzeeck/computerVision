@@ -16,6 +16,32 @@
 
 function F = compute_F_matrix( points2d )
 
+a = 1;
+b = 2;
 
-%------------------------------
-% TODO: FILL IN THIS PART
+n = size(points2d, 2);
+pa(:,:) = points2d(:,:,a);
+pb(:,:) = points2d(:,:,b);
+
+N = compute_normalization_matrices(points2d);
+Na = N(:,:,a);
+Nb = N(:,:,b);
+
+pa = Na* pa;
+pb = Nb* pb;
+
+
+for i=1:n
+    W(i,:) = [pb(1,i)*pa(1,i), pb(1,i)*pa(2,i), pb(1,i), pb(2,i)*pa(1,i), pb(2,i)*pa(2,i), pb(2,i), pa(1,i), pa(2,i), 1];
+end
+
+[U,S,V] = svd(W);
+h = V (:,end);
+
+F = reshape(h,3,3)';
+F = Nb'*F*Na;
+% [U,S,V] = svd(F);
+% 
+% Scorrect = (S(1,1) + S(2,2))/2;
+% 
+% F = U*[Scorrect,0,0;0,Scorrect,0;0,0,0]*V';

@@ -12,6 +12,26 @@
 %           the second camera center.
 
 function [cams, cam_centers] = reconstruct_uncalibrated_stereo_cameras( F )
+%%
+%Cam 1
+Ma = horzcat(eye(3),[0,0,0]');
+cams(:,:,1) = Ma;
+cam_centers(:,1) =[0,0,0,1]; 
+
+%%
+%Cam 2
+S = [0,-1,-1;1,0,-1;1,1,0];
+[U,S,V] = svd(F');
+h = V (:,end);
+cams(:,:,2) = horzcat(S*F,h);
+[U,S,V] = svd(cams(:,:,2));
+h = V (:,end);
+
+for i = 1:3
+    cam_centers(i,2) = h(i);
+end
+cam_canters(4,2) = 1;
+
 
 
 %------------------------------
