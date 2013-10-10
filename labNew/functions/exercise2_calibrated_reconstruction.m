@@ -5,8 +5,8 @@
 %         the two cameras. 
 %         The point-structure is obtained by triangulation.
 
-clear all                   % Remove all old variables
-close all                   % Close all figures
+%clear all                   % Remove all old variables
+%close all                   % Close all figures
 clc                         % Clear the command window
 addpath( genpath( '../' ) );% Add paths to all subdirectories of the parent directory
 
@@ -17,7 +17,7 @@ image_names_file    = 'names_images_teapot.txt';
 SYNTHETIC_DATA      = 1;    % Choose this to use the synthetic data.
 REAL_DATA_CLICK     = 2;    % Choose this to measure and save new real data.
 REAL_DATA_LOAD      = 3;    % Choose this to load real data.
-VERSION             = SYNTHETIC_DATA;
+VERSION             = REAL_DATA_LOAD;
 
 if VERSION == SYNTHETIC_DATA
     points2d_file = '/Users/Johan/Projects/computerVision/labNew/data/data_sphere.mat';
@@ -62,6 +62,9 @@ elseif VERSION == REAL_DATA_LOAD
         
     [images,image_names] = load_images_grey( image_names_file, CAMERAS ); 
     load( points2d_file );
+    %test
+    %points2d = data;
+    %end test
     
 else
     return

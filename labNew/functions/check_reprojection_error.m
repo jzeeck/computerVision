@@ -28,9 +28,15 @@ error_average = 0
 
 for n = 1:N
     for c = 1:C
-        
+        e = norm(homogeneous_to_cartesian(cameras(:,:,c) * point3d(:,n)) - homogeneous_to_cartesian(points2d(:,n,c)));
+        error_average = error_average + e;
+        if e > error_max
+           error_max = e; 
+        end
+
     end
 end
+error_average = error_average/(N*C);
 
 
-error = norm(homogeneous_to_cartesian(cameras(:,:,1) * point3d(:,1)) - homogeneous_to_cartesian(points2d(:,1,1)))
+%error = norm(homogeneous_to_cartesian(cameras(:,:,1) * point3d(:,1)) - homogeneous_to_cartesian(points2d(:,1,1)))

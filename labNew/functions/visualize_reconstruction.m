@@ -44,6 +44,23 @@ grid on
 
 % ------------------------
 % TODO: FILL IN THIS PART
+if isempty(texture)
+  %dt = delaunayTriangulation(X', Y', Z');
+  %tetramesh(dt, 'FaceColor', 'green');  
+    tri = delaunay(points2d_cartesian(1,:),points2d_cartesian(2,:))
+    trisurf(tri,X',Y',Z', 'FaceColor', 'green');
+end
+
+
+
+if not(isempty(texture))
+    %draw_textured_triangles( indices, X, Y, Z, U, V, img, textureSize )
+    tri = delaunay(points2d_cartesian(1,:),points2d_cartesian(2,:))
+    %trisurf(tri,X',Y',Z', 'FaceColor', 'green');
+    %todo
+    draw_textured_triangles(tri, X, Y, Z,points2d_cartesian(2,:),points2d_cartesian(1,:),texture,size(texture)) 
+end
+
 
 
 
