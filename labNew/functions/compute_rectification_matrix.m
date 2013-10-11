@@ -10,5 +10,12 @@
 
 function H = compute_rectification_matrix( points1, points2 )
 
-%------------------------------
-% TODO: FILL IN THIS PART
+n = size(points1, 2);
+
+pPrime = points1;
+p = points2;
+
+for i = 1:n
+    
+    
+end
