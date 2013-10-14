@@ -40,7 +40,10 @@ h = V (:,end);
 
 F = reshape(h,3,3)';
 F = Nb'*F*Na;
-% [U,S,V] = svd(F);
+
+[U,S,V] = svd(F);
+S(3,3) = 0;
+F = U *S*V';
 % 
 % Scorrect = (S(1,1) + S(2,2))/2;
 % 
