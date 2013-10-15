@@ -81,11 +81,11 @@ else
     
     indices = [1 2 3 4 7 8];
     points3d_ground_truth(:,1) = [0,0,0,1]';
-    points3d_ground_truth(:,2) = [0,0,10,1]';
-    points3d_ground_truth(:,3) = [0,9,10,1]';
-    points3d_ground_truth(:,4) = [0,9,0,1]';
-    points3d_ground_truth(:,5) = [27,0,0,1]';
-    points3d_ground_truth(:,6) = [27,15,5,1]';
+    points3d_ground_truth(:,2) = [-10,0,0,1]';
+    points3d_ground_truth(:,3) = [-10,0,9,1]';
+    points3d_ground_truth(:,4) = [0,0,9,1]';
+    points3d_ground_truth(:,5) = [0,27,0,1]';
+    points3d_ground_truth(:,6) = [-5,27,15,1]';
     
     
 end
